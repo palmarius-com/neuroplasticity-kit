@@ -48,8 +48,9 @@ function Write-TextFile([string]$path, [string[]]$lines) {
 }
 
 function Read-TextLines([string]$path) {
-    if (-not (Test-Path -LiteralPath $path)) { return @() }
-    return @([System.IO.File]::ReadAllLines($path))
+    # The comma keeps a one-line file an array (PowerShell would unroll it to a string).
+    if (-not (Test-Path -LiteralPath $path)) { return , @() }
+    return , @([System.IO.File]::ReadAllLines($path))
 }
 
 function Get-NormalizedHash([string]$path) {
