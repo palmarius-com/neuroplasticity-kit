@@ -1,0 +1,12 @@
+# >>> session kit (do not remove; project lines go outside this block)
+# personal
+_session/user/
+# originals: clean room, the gist is in the repository
+_external/screenshots/
+_external/documents/
+_external/downloads/
+# release binaries are published as releases of the online repository
+_session/this_repo/releases/
+# sent archives beside the tracked transfer folders
+_session/this_repo/transfer/*.zip
+# <<< session kit
