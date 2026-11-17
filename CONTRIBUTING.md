@@ -20,7 +20,7 @@ you found; the wording that goes into the kit is then written here.
 
 | What | How to send it |
 |---|---|
-| A rule that proved itself in your project | The entry from your `baseline.md`, "Rule Candidates", with the situation it came from. No names, no customer detail |
+| A rule that proved itself in your project | The entry from your `_session/this_repo/kit_proposals.md`, with the situation it came from. No names, no customer detail |
 | A rule of the kit that did harm or was misread | Which rule, what the assistant did, what you expected |
 | An acceptance test result | Model and version, kit version, the five rows of `procedures/acceptance_test.md` with pass or fail |
 | A hook configuration for another assistant | The configuration and the product version it worked with |

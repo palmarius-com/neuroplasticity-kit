@@ -28,12 +28,15 @@ old files are moved, never removed, and the user removes them later.
    the old session files there unchanged (old baseline, rules file, entry
    files, task list, journal). They stay readable and searchable.
 4. Baseline: write `_session/this_repo/baseline.md` from the project parts
-   of the old baseline (scope, identity, project rules, machine notes,
-   pending). Session history in the old baseline is not copied; it stays
-   in the legacy file, and `baseline.md` says where.
+   of the old baseline (scope, branch and remote, project rules, tool
+   notes that hold on every machine, pending). Session history in the old
+   baseline is not copied; it stays in the legacy file, and `baseline.md`
+   says where. The commit identity and the notes about one machine go to
+   `_session/user/user.md` (step 8), not into `baseline.md`.
 5. Rules in the old files that are not in the kit: project rules go to
-   "Project Rules"; rules that look general go to "Rule Candidates" with
-   their origin. Nothing is dropped silently: what is not taken over is
+   "Project Rules" (long ones: files in `project_rules/`, each with a row
+   in "Project Topic Files"); rules that look general go to
+   `kit_proposals.md` with their origin. Nothing is dropped silently: what is not taken over is
    listed in the migration task with the reason.
 6. Tasks: one file per task. Open tasks get a full file. Closed tasks:
    one file each when the list is small; for a long list (hundreds) ask

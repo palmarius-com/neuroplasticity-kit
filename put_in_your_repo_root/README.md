@@ -10,7 +10,7 @@ starts with: "Read .start.md". Everything the assistant needs is in
 `_session/`:
 
 - `_session/kit/` - the method: rules, procedures, tools. The same in every
-  repository. Start with `_session/kit/how_does_it_work.md`.
+  repository. The assistant starts with `_session/kit/core.md`.
 - `_session/user/` - who the user is. Personal, not in version control.
 - `_session/this_repo/` - this project: baseline, tasks (one file each),
   journal, the generated task list and timetable, transfer packages.

@@ -58,8 +58,8 @@ Kit file. Formats are in `core.md`.
   the user corrects one with an `adjust` line.
 - An interval of more than 2 hours counts zero until the user has answered.
   The start script lists them. Ask with the question tool, one question
-  per gap: "After <time> you worked how long on <task>?", options in steps
-  of 15 minutes (the four most likely) plus "other".
+  per gap: "After <time> you worked how long on <task>?", four options in
+  steps of 15 minutes (the most likely values), "other" as free-text option.
 - Write the answer as `- <now> <Tnnn> gap <timecode of the line before the
   gap> <hours>h`.
 - Ask at session start also for work done without the assistant (bench,

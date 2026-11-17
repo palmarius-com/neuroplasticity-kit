@@ -1,6 +1,10 @@
 # start.ps1 - run at every session start (named in .start.md, approved by installing the kit).
 # Prints a short report and appends the "session start" line to the journal. Changes nothing else.
 
+# -Source is given by the session start hook (startup, resume, clear, compact). With "compact"
+# the journal line says "context compacted", not "session start": the session goes on.
+param([string]$Source = '')
+
 $ErrorActionPreference = 'Stop'
 . (Join-Path $PSScriptRoot 'lib.ps1')
 $p = Get-SessionPaths
@@ -22,6 +26,15 @@ if (Test-Path -LiteralPath (Join-Path $p.Repo '.git')) {
         $branch = (& git -C $p.Repo branch --show-current 2>$null)
     } catch { }
     Write-Output ("Git: yes. Identity: {0} <{1}>. Branch: {2}" -f $name, $mail, $branch)
+    # The identity belongs to the person: user.md, "Commit as" (never baseline.md).
+    foreach ($userLine in (Read-TextLines (Join-Path $p.User 'user.md'))) {
+        if ($userLine -match '^- \*\*Commit as\*\*:\s*(.+)$') {
+            $want = $Matches[1].Trim()
+            if ($want -notmatch 'FILL IN' -and $want -ne 'none' -and "$mail" -ne '' -and $want.IndexOf("$mail", [System.StringComparison]::OrdinalIgnoreCase) -lt 0) {
+                Write-Output ("WARN: configured identity is not 'Commit as' in user.md ({0}). Tell the user." -f $want)
+            }
+        }
+    }
 } else {
     Write-Output 'Git: no .git folder here.'
 }
@@ -79,6 +92,20 @@ if ($journal.Count -eq 0) {
     }
 }
 
-$line = Add-JournalLine 'T000' ("session start {0} machine {1}" -f (Get-UtcOffsetText), (Get-MachineName))
-Write-Output ("Journal: {0}" -f $line)
+# One start line per start: the hook runs this script, and the assistant may run it again
+# when the user says "read .start.md". A start line of this machine that is younger than
+# 5 minutes stands.
+$machine = Get-MachineName
+$recent = @($journal | Where-Object {
+    $_.Text -match '^session start' -and $_.File -like ("*_{0}.md" -f $machine) -and ((Get-Date) - (ConvertTo-Time $_.Code)).TotalMinutes -lt 5
+})
+if ($Source -eq 'compact') {
+    $line = Add-JournalLine (Get-CurrentTask) ("context compacted (hook) {0} machine {1}" -f (Get-UtcOffsetText), $machine)
+    Write-Output ("Journal: {0}" -f $line)
+} elseif ($recent.Count -gt 0) {
+    Write-Output ("Journal: the session start line of {0} stands, no second line." -f $recent[$recent.Count - 1].Code)
+} else {
+    $line = Add-JournalLine 'T000' ("session start {0} machine {1}" -f (Get-UtcOffsetText), $machine)
+    Write-Output ("Journal: {0}" -f $line)
+}
 Write-Output 'Next: read _session/kit/core.md, _session/user/, _session/this_repo/baseline.md.'

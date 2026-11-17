@@ -16,6 +16,8 @@ One-off. Read only when doing it.
    `_session/this_repo/transfer/`, `_session/this_repo/releases/`.
 7. With the user's word: run `tools/check.ps1`. Fix what it reports or
    open a task per finding.
-8. Tell the user about the hooks (`tools/hooks/readme.md`). Installing
-   them is the user's step.
+8. Tell the user about the three hooks (`tools/hooks/readme.md`: journal
+   stamp, session start, topic reminder). Installing them is the user's
+   step, once per machine. Whether they are installed
+   is noted in `_session/user/user.md`, "Machines", not in `baseline.md`.
 9. Say what is uncommitted. The first commit is the user's.

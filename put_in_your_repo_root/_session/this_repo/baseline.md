@@ -4,6 +4,10 @@ The project part of the session files. General rules: `_session/kit/`. The
 person: `_session/user/`. No session story here: events go to the journal,
 findings to the task.
 
+This file is shared by everyone who works here. Nothing that is true for
+one person or one machine only: no commit identity, no local paths, no
+installed versions, no state of the hooks. That is `_session/user/user.md`.
+
 ## Scope
 
 FILL IN: what the project is, in three or four lines.
@@ -19,9 +23,11 @@ Set by the project survey (T001), with the date. Tools read the keys.
 - time: FILL IN
 - gitignore: FILL IN
 
-## Identity
+## Version Control
 
-- commit_as: FILL IN (name and address; "none" without version control)
+Who commits as whom is not here: each person's `_session/user/user.md`,
+"Commit as".
+
 - branch: FILL IN
 - remote: FILL IN
 
@@ -32,10 +38,22 @@ Topic rules of `_session/kit/rules/` that apply here. The others do not.
 - tasks.md, working.md, facts.md, capture.md, files.md, debugging.md
 - FILL IN: git.md, testing.md, hardware.md, release.md, messages.md
 
+## Project Topic Files
+
+Rules of this project that are too long for this file are files in
+`_session/this_repo/project_rules/`. Read the file before the thing. A
+file without a row here is not read by anyone.
+
+| Before | Read |
+|---|---|
+| (none yet) | |
+
 ## Allowed Without Asking
 
-Tools and commands the user allows without a question, each with the
-user's words and the date. Empty means: only what Hard Rule 3 names.
+Tools and commands allowed without a question for everyone who works
+here, each with the words, the name of who said them, and the date. What
+one person allows for themselves: that person's `preferences.md`. Empty
+means: only what Hard Rule 3 names.
 
 - (none)
 
@@ -46,16 +64,17 @@ the user's quoted words and the date.
 
 - (none yet)
 
-## Rule Candidates
+## Kit Proposals
 
-Rules found here that look general. They hold here at once. Only the user
-promotes them into the kit. Each with origin and date.
+Rules found here that look general, and everything found wrong with the
+kit itself, are in `kit_proposals.md` in this folder. They hold here at
+once. Only the user promotes them into the kit.
 
-- (none yet)
+## Tool Notes
 
-## Machine Notes
-
-Tool paths, versions and quirks found while working, with the date.
+What holds on every machine, with the date: required versions, pinned
+dependencies, quirks of the build. Paths, installed versions and quirks of
+one machine: `_session/user/user.md`, "Machines".
 
 - (none yet)
 

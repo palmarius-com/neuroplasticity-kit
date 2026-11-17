@@ -23,6 +23,8 @@ foreach ($item in (Get-ChildItem -LiteralPath $p.Session -Recurse -Force)) {
 
 # 3. Line width (README.md and markdown in _session; tables exempt)
 $limit = 100
+$migratedLong = 0
+$migratedFiles = 0
 foreach ($line in (Read-TextLines (Join-Path $p.User 'preferences.md'))) {
     if ($line -match '^- line_width_limit:\s*(\d+)') { $limit = [int]$Matches[1] }
 }
@@ -31,13 +33,24 @@ $readme = Join-Path $p.Repo 'README.md'
 if (Test-Path -LiteralPath $readme) { $mdFiles += Get-Item -LiteralPath $readme }
 foreach ($file in $mdFiles) {
     if ($file.Name -in 'tasklist.md', 'timetable.md') { continue }
+    # The legacy folder holds the files of the old layout unchanged: not checked.
+    if ($file.FullName -like '*\this_repo\legacy\*') { continue }
+    $fileLines = Read-TextLines $file.FullName
+    # Files migrated word for word keep their old line width: counted, not an error.
+    $migrated = @($fileLines | Select-Object -First 6 | Where-Object { $_ -match '^Migrated ' }).Count -gt 0
+    $long = 0
     $n = 0
-    foreach ($line in (Read-TextLines $file.FullName)) {
+    foreach ($line in $fileLines) {
         $n++
         if ($line.StartsWith('|')) { continue }
-        if ($line.Length -gt $limit) { $errors.Add(("line over {0} characters: {1}:{2} ({3})" -f $limit, (Get-Relative $file.FullName), $n, $line.Length)) }
+        if ($line.Length -gt $limit) {
+            if ($migrated) { $long++ }
+            else { $errors.Add(("line over {0} characters: {1}:{2} ({3})" -f $limit, (Get-Relative $file.FullName), $n, $line.Length)) }
+        }
     }
+    if ($long -gt 0) { $migratedLong += $long; $migratedFiles++ }
 }
+if ($migratedFiles -gt 0) { $warnings.Add("$migratedLong line(s) over $limit characters in $migratedFiles migrated file(s), kept word for word") }
 
 # 4. Tasks: one file per task, the heading carries the number of the file name, no number twice
 $tasks = @(Get-TaskFiles)

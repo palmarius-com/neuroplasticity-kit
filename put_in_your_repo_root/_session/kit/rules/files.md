@@ -25,6 +25,9 @@ Kit file. Name and timecode formats are in `core.md`.
 - Helper scripts are files, not inline commands (inline commands lose
   backslashes and quotes). Project scripts go in the project's `tools/`
   folder; `_session/kit/tools/` belongs to the kit.
+- A throwaway script may live in the scratchpad. As soon as it is useful
+  later it moves into `tools/` (or the folder that owns it): the
+  scratchpad does not travel to another machine.
 - Tool dependencies are repo-local or installed by a repo script. Do not
   rely on machine-global services, CDNs or user-profile caches.
 - Plan files live inside the workspace, so the editor can preview them.

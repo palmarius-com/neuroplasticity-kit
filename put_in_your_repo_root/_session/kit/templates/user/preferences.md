@@ -6,6 +6,7 @@ the user's word: add the quote and the date behind it.
 
 - language_replies: FILL IN
 - language_files: English
+- language_mail: per recipient (the language the recipient writes in)
 - reply_style: FILL IN
 - shell: FILL IN
 - machines: FILL IN

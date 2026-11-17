@@ -21,7 +21,9 @@ user decide, and brings out a new kit version.
 1. The user names the source projects (paths). Per source: kit version
    (`_session/kit/version`), or "old layout".
 2. Collect candidates:
-   - kit layout: `baseline.md`, "Rule Candidates" and "Project Rules";
+   - kit layout: `_session/this_repo/kit_proposals.md` (older projects:
+     `baseline.md`, "Rule Candidates"); `baseline.md`, "Project Rules";
+     the files in `project_rules/`;
      `user/principles.md` and `preferences.md`, "More";
    - old layout: the rule sections of its baseline or entry file only.
      Large files: map the headings first, do not read project history;
@@ -45,6 +47,9 @@ user decide, and brings out a new kit version.
    `tools/manifest.ps1` and `tools/check.ps1`.
 9. Write a dated note in the kit master: what was promoted, from which
    project, what was refused, how conflicts were settled.
-10. Report which projects are behind the new version. Replacing
+10. In each source project's `kit_proposals.md`, with the user's word:
+    set the status of every proposal (in the kit since version ..., or
+    refused, with the reason).
+11. Report which projects are behind the new version. Replacing
     `_session/kit/` there is a copy, done by the user or as a task in that
     project.

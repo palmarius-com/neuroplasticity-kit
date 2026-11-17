@@ -9,8 +9,14 @@ Three owners:
 | Folder | Holds | Changed by |
 |---|---|---|
 | `_session/kit/` | the method: rules, procedures, tools | kit update only |
-| `_session/user/` | the person: who, preferences, principles | the person |
+| `_session/user/` | the person: who, commit identity, machines, preferences, principles | the person |
 | `_session/this_repo/` | the project: baseline, tasks, journal | every session |
+
+Several people can work in one repository. `_session/this_repo/` is in
+version control and shared by all of them: it holds nothing that is true
+for one person or one machine only. Commit identity, local paths, installed
+versions and the state of the hooks go to `_session/user/`, which is
+git-ignored. Words of a user quoted in a shared file name who said them.
 
 ## Priority
 
@@ -42,8 +48,13 @@ exact thing, or confirmed after being asked.
 3. **Running things**: no tests, builds, exports, scripts, hardware-facing
    commands, nothing billed or metered, without the user's word. Tell the
    cost first. Timeouts: 10 minutes or less. Approved without asking:
-   reading the session files, `_session/kit/tools/start.ps1`, and what
-   `baseline.md` lists under "Allowed without asking".
+   reading, `_session/kit/tools/start.ps1`, and what `baseline.md` lists
+   under "Allowed Without Asking". Reading is: commands that only read and
+   change nothing outside the scratchpad (list, search, count, the clock,
+   status, diff and log of version control, decoding a file, checking a
+   checksum). Not reading: anything that writes to the repository other
+   than through the file tools, installs software, talks to hardware or a
+   mailbox, or runs a build or a test.
 4. **The user's machine**: no take-over of pointer, keyboard or mail client
    without asking and WAITING for the OK.
 5. **Code**: ask before changing existing code. Explain before
@@ -68,8 +79,10 @@ exact thing, or confirmed after being asked.
 12. **Rules**: the assistant never weakens, drops or reinterprets a rule.
     A rule is relaxed only by the user's own words, quoted with the date.
     In doubt the stricter reading holds. A new rule that looks general is
-    written into `baseline.md`, "Rule Candidates"; only the user promotes
-    it into the kit.
+    written into `_session/this_repo/kit_proposals.md`; only the user
+    promotes it into the kit. So is every finding about the kit itself (a
+    rule that did harm, a gap, a tool that failed): write the proposal
+    the moment it is found, do not wait to be asked.
 
 ## Session Start
 
@@ -78,7 +91,9 @@ exact thing, or confirmed after being asked.
    version control and identity, the tasks worked on last that are still
    open, open gaps, missing files.
 2. Read `_session/user/user.md` and `_session/user/preferences.md`. If
-   they are missing: task T002 ("introduce yourself").
+   they are missing: task T002 ("introduce yourself"). The start script
+   warns when the configured identity is not "Commit as" in `user.md`:
+   tell the user, change nothing without the user's word.
 3. Read `_session/this_repo/baseline.md`. If it still holds `FILL IN`:
    task T001 (project survey).
 4. Open gaps reported by the start script: ask the user with the question
@@ -86,6 +101,15 @@ exact thing, or confirmed after being asked.
    assistant.
 5. Reply with a short summary and ask only: "Anything changed since last
    session?" and whether to continue the last open task.
+
+After a compaction (the harness replaced the conversation by a summary)
+the rules are no longer in the context. Do not "resume directly". Read
+`core.md`, the user files and `baseline.md` again, in full, before any
+other work; then the current task file and the last journal lines. The
+hook `tools/hooks/session_start.ps1` runs the start script and gives this
+order at every start and after every compaction. Without the hook the
+rule holds all the same: a summary at the top of the context means "read
+the rules again".
 
 Not read at start: `README.md` (it is for humans), task files, closed
 tasks, journal files, topic rules, procedures. A session is never closed
@@ -152,6 +176,11 @@ edited by hand.
 | Mail, forum or chat drafts, documents for customers | `messages.md` |
 
 `baseline.md` lists the topic files that are active in this project; the
-others do not apply here. One-off jobs (new repository, kit update,
-migration, moving a repository, acceptance test) are in
+others do not apply here. Rules of the project that are too long for
+`baseline.md` are files in `_session/this_repo/project_rules/`;
+`baseline.md`, "Project Topic Files", has the same kind of table for
+them: read the file before the thing. A file there that no table row
+names is not read by anyone. One-off jobs (new repository, kit update,
+migration, moving a repository, handoff to another machine, acceptance
+test) are in
 `_session/kit/procedures/` and are read only when that job is done.
